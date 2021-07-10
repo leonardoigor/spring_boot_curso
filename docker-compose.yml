@@ -5,7 +5,7 @@ services:
         build: 
             context: .
         tty: true
-        # restart: always
+        restart: always
         volumes: 
             - ./:/myapp
             - ./.docker/sdk:/root/.m2

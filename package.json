@@ -6,6 +6,7 @@
   "scripts": {
     "up": "docker compose -f docker-compose.yml -p javarest up -d --renew-anon-volumes ",
     "down": "docker compose -f docker-compose.yml -p javarest down --volumes --rmi local",
-    "restart": "yarn down&&yarn up"
+    "restart": "yarn down&&yarn up",
+    "start": "npm i && mvn clean spring-boot:run "
   }
 }
