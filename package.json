@@ -1,0 +1,11 @@
+{
+  "name": "rest_java",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "up": "docker compose -f docker-compose.yml -p javarest up -d --renew-anon-volumes ",
+    "down": "docker compose -f docker-compose.yml -p javarest down --volumes --rmi local",
+    "restart": "yarn down&&yarn up"
+  }
+}
