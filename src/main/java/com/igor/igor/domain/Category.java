@@ -1,14 +1,15 @@
 package com.igor.igor.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Categoria implements Serializable {
+public class Category implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Id
@@ -16,7 +17,24 @@ public class Categoria implements Serializable {
     private Integer id;
     private String nome;
 
-    public Categoria(Integer id, String nome) {
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<Product>();
+
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+
+    public Category() {
+    }
+
+    public Category(Integer id, String nome) {
         super();
         this.id = id;
         this.nome = nome;
@@ -42,11 +60,11 @@ public class Categoria implements Serializable {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Categoria)) {
+        if (!(o instanceof Category)) {
             return false;
         }
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(id, categoria.id) && Objects.equals(nome, categoria.nome);
+        Category category = (Category) o;
+        return Objects.equals(id, category.id) && Objects.equals(nome, category.nome);
     }
 
     @Override
