@@ -27,6 +27,8 @@ public class Client implements Serializable {
     @JsonManagedReference
     private Set<String> fones = new HashSet<String>();
 
+    private List<Pedido> pedidos = new ArrayList<Pedido>();
+
     public Client() {
     }
 
@@ -36,6 +38,14 @@ public class Client implements Serializable {
         this.email = email;
         this.cpf_cnpj = cpf_cnpj;
         this.typeClient = typeClient.getCod();
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public List<Address> getAddresses() {
