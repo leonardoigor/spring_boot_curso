@@ -1,19 +1,15 @@
 package com.igor.igor;
 
-import com.igor.igor.domain.Category;
-import com.igor.igor.domain.City;
-import com.igor.igor.domain.Product;
-import com.igor.igor.domain.State;
-import com.igor.igor.repositories.CategoriaRepository;
-import com.igor.igor.repositories.CityRepository;
-import com.igor.igor.repositories.ProductRepository;
-import com.igor.igor.repositories.StateRepository;
+import com.igor.igor.domain.*;
+import com.igor.igor.domain.enums.TypeClient;
+import com.igor.igor.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
+
 
 @SpringBootApplication
 public class IgorApplication implements CommandLineRunner {
@@ -25,6 +21,10 @@ public class IgorApplication implements CommandLineRunner {
     private StateRepository stateRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private AdressRepository adressRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(IgorApplication.class, args);
@@ -46,7 +46,6 @@ public class IgorApplication implements CommandLineRunner {
         City c = new City(null, "UberLandia", s1);
         City c2 = new City(null, "Sao Paulo", s2);
 
-
         cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
         cat2.getProducts().addAll(Arrays.asList(p2));
 
@@ -54,10 +53,20 @@ public class IgorApplication implements CommandLineRunner {
         p2.getCategories().addAll(Arrays.asList(cat2));
         s1.getCities().addAll(Arrays.asList(c, c2));
 
+        Client cli1 = new Client(null, "Maria", "@naub", "32564164564", TypeClient.PESOALJURIDICA);
+        cli1.getFones().addAll(Arrays.asList("444646611", "54454784684"));
+
+        Address adresse = new Address(null, "Rua", "300", "4864s", "!a5a45", "5545445", cli1, c);
+
+        cli1.getAddresses().addAll(Arrays.asList(adresse));
+
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
         productRepository.saveAll(Arrays.asList(p1, p2, p3));
         stateRepository.saveAll(Arrays.asList(s1, s2));
         cityRepository.saveAll(Arrays.asList(c, c2));
+        clientRepository.saveAll(Arrays.asList(cli1));
+        adressRepository.saveAll(Arrays.asList(adresse));
+
 
     }
 }
