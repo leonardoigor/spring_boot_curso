@@ -1,7 +1,6 @@
 package com.igor.igor.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,9 +19,9 @@ public class Address implements Serializable {
     private String bairro;
     private String cep;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @JsonBackReference
     private Client client;
     @ManyToOne
     @JoinColumn(name = "city_id")

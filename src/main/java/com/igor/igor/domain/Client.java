@@ -1,7 +1,6 @@
 package com.igor.igor.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.igor.igor.domain.enums.TypeClient;
 
 import javax.persistence.*;
@@ -24,10 +23,9 @@ public class Client implements Serializable {
     private List<Address> addresses = new ArrayList<Address>();
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
-    @JsonManagedReference
     private Set<String> fones = new HashSet<String>();
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Pedido> pedidos = new ArrayList<Pedido>();
 
