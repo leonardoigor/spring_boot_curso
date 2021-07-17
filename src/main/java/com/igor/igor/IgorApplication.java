@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -32,6 +31,8 @@ public class IgorApplication implements CommandLineRunner {
     private PedidoRepository pedidoRepository;
     @Autowired
     private PaymentRepository paymentRepository;
+    @Autowired
+    private ItemPedidoRepository itempeidoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(IgorApplication.class, args);
@@ -86,5 +87,10 @@ public class IgorApplication implements CommandLineRunner {
         pedidoRepository.saveAll(Arrays.asList(ped1));
         paymentRepository.saveAll(Arrays.asList(pagto1));
 
+        ItemPedido ip1 = new ItemPedido(ped1, p1, 0., 1, 2000.);
+        ped1.getItens().addAll(Arrays.asList(ip1));
+        p1.getItens().addAll(Arrays.asList(ip1));
+
+        itempeidoRepository.saveAll(Arrays.asList(ip1));
     }
 }
