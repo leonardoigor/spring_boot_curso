@@ -3,7 +3,9 @@ package com.igor.igor.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -20,8 +22,11 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
     @ManyToOne
-    @JoinColumn(name = "adress_id")
+    @JoinColumn(name = "address_id")
     private Address address;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<ItemPedido>();
 
 
     public Pedido() {
@@ -32,6 +37,14 @@ public class Pedido implements Serializable {
         this.instante = instante;
         this.client = client;
         this.address = address;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 
     public Integer getId() {
