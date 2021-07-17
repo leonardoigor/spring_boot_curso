@@ -16,17 +16,20 @@ public class Pedido implements Serializable {
     private Date instante;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Payment payment;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+    @ManyToOne
+    @JoinColumn(name = "adress_id")
     private Address address;
 
 
     public Pedido() {
     }
 
-    public Pedido(Integer id, Date instante, Payment payment, Client client, Address address) {
+    public Pedido(Integer id, Date instante, Client client, Address address) {
         this.id = id;
         this.instante = instante;
-        this.payment = payment;
         this.client = client;
         this.address = address;
     }

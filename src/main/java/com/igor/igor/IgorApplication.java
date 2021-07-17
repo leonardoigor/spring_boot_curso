@@ -1,13 +1,16 @@
 package com.igor.igor;
 
 import com.igor.igor.domain.*;
+import com.igor.igor.domain.enums.PaymentState;
 import com.igor.igor.domain.enums.TypeClient;
 import com.igor.igor.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 
@@ -25,6 +28,10 @@ public class IgorApplication implements CommandLineRunner {
     private ClientRepository clientRepository;
     @Autowired
     private AdressRepository adressRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(IgorApplication.class, args);
@@ -67,6 +74,17 @@ public class IgorApplication implements CommandLineRunner {
         clientRepository.saveAll(Arrays.asList(cli1));
         adressRepository.saveAll(Arrays.asList(adresse));
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
+
+        Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, adresse);
+
+        Payment pagto1 = new CartaoPayment(null, PaymentState.QUITADO, ped1, 6);
+        ped1.setPayment(pagto1);
+
+        cli1.getPedidos().addAll(Arrays.asList(ped1));
+
+        pedidoRepository.saveAll(Arrays.asList(ped1));
+        paymentRepository.saveAll(Arrays.asList(pagto1));
 
     }
 }

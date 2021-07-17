@@ -2,6 +2,9 @@ package com.igor.igor.domain;
 
 import com.igor.igor.domain.enums.PaymentState;
 
+import javax.persistence.Entity;
+
+@Entity
 public class CartaoPayment extends Payment {
     private static final long serialVersionUID = 1L;
 
