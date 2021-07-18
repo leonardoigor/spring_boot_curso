@@ -48,7 +48,8 @@ public class CategoryService {
 
 
     public <S extends Category> S save(S s) {
-        return null;
+        s.setId(null);
+        return repo.save(s);
     }
 
 
